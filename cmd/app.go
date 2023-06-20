@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -55,8 +56,9 @@ func readConf() {
 			}
 		}
 	}
-
-	//读取配置文件
-	fmt.Println(v.GetString("HttpServer.app.Port"))
-	fmt.Println(v.GetString("mysql.addr"))
+	// 监控配置文件变化
+	v.WatchConfig()
+	viper.OnConfigChange(func(in fsnotify.Event) {
+		//do something
+	})
 }

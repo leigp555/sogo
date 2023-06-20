@@ -13,6 +13,5 @@ var startCmd = &cobra.Command{
 }
 
 func init() {
-	startCmd.AddCommand(amdinCmd)
 	startCmd.AddCommand(appCmd)
 }
