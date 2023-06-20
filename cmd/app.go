@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
+	"sogo/app/global/variable"
 )
 
 var (
@@ -22,9 +23,11 @@ var appCmd = &cobra.Command{
 	SuggestionsMinimumDistance: 10,
 	SuggestFor:                 []string{"web"},
 	PreRun: func(cmd *cobra.Command, args []string) {
+		//读取配置文件
 		readConf()
-		//TODO:初始化
-		//TODO:启动服务
+		//初始化依赖
+		//初始化路由
+		//启动项目
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("门户网站服务已启动...")
@@ -55,10 +58,12 @@ func readConf() {
 				os.Exit(1)
 			}
 		}
+		variable.Config = v
 	}
 	// 监控配置文件变化
 	v.WatchConfig()
-	viper.OnConfigChange(func(in fsnotify.Event) {
+	v.OnConfigChange(func(in fsnotify.Event) {
 		//do something
+		fmt.Println("配置文件已更新")
 	})
 }
