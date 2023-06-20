@@ -17,7 +17,7 @@ var rootCmd = &cobra.Command{
 	Long:                       `sogo 易扩展,功能强大的golang web脚手架`,
 	Version:                    "0.0.1",
 	SuggestionsMinimumDistance: 1,
-	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+	PersistentPostRun: func(cmd *cobra.Command, args []string) {
 		fmt.Println("欢迎使用 sogo")
 	},
 }

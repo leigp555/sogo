@@ -1,0 +1,7 @@
+mysql:
+  addr: "1.117.141.66:3306"
+  username: "root"
+  password: "123456abc"
+  maxConn: 10
+  maxOpen: 100
+  db: "img"

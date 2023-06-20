@@ -1,0 +1,11 @@
+HttpServer:
+  app:
+    Port: ":20191"
+  admin:
+    Port: ":20201"
+  AllowCrossDomain: true
+  TrustProxies:
+    IsOpen: 0
+    ProxyServerList:
+      - "192.168.10.1"
+      - "192.168.10.2"
