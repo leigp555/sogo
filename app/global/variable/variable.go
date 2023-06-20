@@ -1,10 +1,16 @@
 package variable
 
 import (
-	"github.com/spf13/viper"
+	"go.uber.org/zap"
+	"sogo/app/global/types"
 )
 
 var (
 	// Config 全局配置
-	Config *viper.Viper
+	Config   types.YamlConf
+	ZapLog   *zap.Logger
+	GinLog   *zap.Logger
+	MysqlLog *zap.Logger
+
+	ConfigKeyPrefix = "Config_"
 )

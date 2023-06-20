@@ -5,3 +5,31 @@ mysql:
   maxConn: 10
   maxOpen: 100
   db: "img"
+  logConfig:
+    filename: "log/mysql/log"
+    maxSize: 1
+    maxBackups: 5
+    maxAge: 30
+    compress: false
+    showLine: true
+    level: "debug"
+redis:
+  addr: "1.117.141.66:6379"
+  password: "123456abc"
+  db: 0
+  poolSize: 50
+nsq:
+  nsqdAddr: "1.117.141.66:4150"
+  nsqlookupdAddr: "1.117.141.66:4161"
+socket:
+  mode: release
+  host: "0.0.0.0"
+  port: "8000"
+  readBufferSize: 1024
+  writeBufferSize: 1024
+  handshakeTimeout: 10s
+  enableCompression: true
+elasticsearch:
+  addr: "http://1.117.141.66:9200"
+  username: "elastic"
+  password: "123456abc"

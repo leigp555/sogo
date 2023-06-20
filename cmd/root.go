@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -14,9 +13,6 @@ var rootCmd = &cobra.Command{
 	Long:                       `sogo 易扩展,功能强大的golang web脚手架`,
 	Version:                    "0.0.1",
 	SuggestionsMinimumDistance: 1,
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-		fmt.Println("欢迎使用 sogo")
-	},
 }
 
 func Execute() {
