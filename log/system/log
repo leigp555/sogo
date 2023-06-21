@@ -1,0 +1,2 @@
+{"level":"info","time":"2023-06-21 08:47:02.419","caller":"[bootstrap/init.go:10]","message":"Initializing dependencies"}
+{"level":"info","time":"2023-06-21 09:10:26.884","caller":"[bootstrap/init.go:10]","message":"Initializing dependencies"}

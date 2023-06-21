@@ -1,4 +1,4 @@
-package utils
+package zap_factory
 
 import (
 	"github.com/natefinch/lumberjack"
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type logConfig struct {
+type options struct {
 	Filename   string
 	MaxSize    int
 	MaxBackups int
@@ -19,55 +19,29 @@ type logConfig struct {
 	Level      string
 }
 
-type options struct {
-	lumberjack logConfig
+func createOption(k string) *options {
+	return &options{
+		Filename:   variable.Config.GetString(k + ".logConfig.filename"),
+		MaxSize:    variable.Config.GetInt(k + ".logConfig.maxSize"),
+		MaxBackups: variable.Config.GetInt(k + ".logConfig.maxBackups"),
+		MaxAge:     variable.Config.GetInt(k + ".logConfig.maxAge"),
+		Compress:   variable.Config.GetBool(k + ".logConfig.compress"),
+		ShowLine:   variable.Config.GetBool(k + ".logConfig.showLine"),
+		Level:      variable.Config.GetString(k + ".logConfig.level"),
+	}
 }
 
-func InitLogger() {
-	ginOpt := options{
-		lumberjack: logConfig{
-			Filename:   variable.Config.GetString("gin.logConfig.filename"),
-			MaxSize:    variable.Config.GetInt("gin.logConfig.maxSize"),
-			MaxBackups: variable.Config.GetInt("gin.logConfig.maxBackups"),
-			MaxAge:     variable.Config.GetInt("gin.logConfig.maxAge"),
-			Compress:   variable.Config.GetBool("gin.logConfig.compress"),
-			ShowLine:   variable.Config.GetBool("gin.logConfig.showLine"),
-			Level:      variable.Config.GetString("gin.logConfig.level"),
-		},
-	}
-	sysOpt := options{
-		lumberjack: logConfig{
-			Filename:   variable.Config.GetString("system.logConfig.filename"),
-			MaxSize:    variable.Config.GetInt("system.logConfig.maxSize"),
-			MaxBackups: variable.Config.GetInt("system.logConfig.maxBackups"),
-			MaxAge:     variable.Config.GetInt("system.logConfig.maxAge"),
-			Compress:   variable.Config.GetBool("system.logConfig.compress"),
-			ShowLine:   variable.Config.GetBool("system.logConfig.showLine"),
-			Level:      variable.Config.GetString("system.logConfig.level"),
-		},
-	}
-	mysqlOpt := options{
-		lumberjack: logConfig{
-			Filename:   variable.Config.GetString("mysql.logConfig.filename"),
-			MaxSize:    variable.Config.GetInt("mysql.logConfig.maxSize"),
-			MaxBackups: variable.Config.GetInt("mysql.logConfig.maxBackups"),
-			MaxAge:     variable.Config.GetInt("mysql.logConfig.maxAge"),
-			Compress:   variable.Config.GetBool("mysql.logConfig.compress"),
-			ShowLine:   variable.Config.GetBool("mysql.logConfig.showLine"),
-			Level:      variable.Config.GetString("mysql.logConfig.level"),
-		},
-	}
-	variable.GinLog = generateLog(ginOpt)
-	variable.ZapLog = generateLog(sysOpt)
-	variable.MysqlLog = generateLog(mysqlOpt)
+func CreateLogger(k string) (log *zap.Logger) {
+	opt := createOption(k)
+	return generateLog(opt)
 }
 
-// 根据配置生成zap日志对象\
+// 根据配置生成zap日志对象
 
-func generateLog(opt options) *zap.Logger {
-	writeSyncer := getLogWriter(opt.lumberjack.Filename, opt.lumberjack.MaxSize, opt.lumberjack.MaxBackups, opt.lumberjack.MaxAge, opt.lumberjack.Compress)
+func generateLog(opt *options) *zap.Logger {
+	writeSyncer := getLogWriter(opt.Filename, opt.MaxSize, opt.MaxBackups, opt.MaxAge, opt.Compress)
 	encoder := getEncoder()
-	level := getLogLevel(opt.lumberjack.Level)
+	level := getLogLevel(opt.Level)
 	core := zapcore.NewCore(encoder, writeSyncer, level)
 	// 开启开发模式，堆栈跟踪
 	caller := zap.AddCaller()
@@ -77,7 +51,7 @@ func generateLog(opt options) *zap.Logger {
 	//filed := zap.Fields(zap.String("user", logConf.Prefix))
 	// 构造日志
 	var logger *zap.Logger
-	if opt.lumberjack.ShowLine {
+	if opt.ShowLine {
 		logger = zap.New(core, caller, development)
 	} else {
 		logger = zap.New(core, caller)

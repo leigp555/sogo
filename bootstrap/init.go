@@ -2,10 +2,11 @@ package bootstrap
 
 import (
 	"sogo/app/global/variable"
-	"sogo/app/utils"
+	"sogo/app/utils/zap_factory"
 )
 
 func InitDeps() {
-	utils.InitLogger()
-	variable.ZapLog.Info("Initializing dependencies")
+	variable.GinLog = zap_factory.CreateLogger("gin")
+	variable.ZapLog = zap_factory.CreateLogger("system")
+	variable.MysqlLog = zap_factory.CreateLogger("mysql")
 }

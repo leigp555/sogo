@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
+	"sogo/app/global/variable"
 	"sogo/app/utils/conf_read"
 	"sogo/bootstrap"
 )
@@ -61,5 +62,5 @@ func readConf() {
 			}
 		}
 	}
-	conf_read.CreateGlobalConf(v)
+	variable.Config = conf_read.CreateGlobalConf(v)
 }
