@@ -4,14 +4,15 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"sogo/app/core/kvStore"
+	"sogo/app/global/types"
 	"sogo/app/global/variable"
 	"sync"
 	"time"
 )
 
-var store = kvStore.CreateKvStore()
 var lastChangeTime time.Time
 var mu sync.Mutex
+var store = kvStore.CreateKvStore()
 
 func init() {
 	lastChangeTime = time.Now()
@@ -21,10 +22,12 @@ type ymlConfig struct {
 	viper *viper.Viper
 }
 
-func CreateGlobalConf(v *viper.Viper) {
-	variable.Config = &ymlConfig{
+func CreateGlobalConf(v *viper.Viper) (c types.YamlConf) {
+	c = &ymlConfig{
 		viper: v,
 	}
+	c.ConfigFileChangeListen()
+	return c
 }
 
 // ConfigFileChangeListen 监听文件变化

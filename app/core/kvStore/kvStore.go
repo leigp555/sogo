@@ -11,14 +11,20 @@ import (
 // 定义一个全局键值对存储容器
 var sMap sync.Map
 
-func CreateKvStore() *kvStore {
+type StoreInterface interface {
+	Set(key string, value interface{}) (ret bool)
+	Delete(key string)
+	Get(key string) interface{}
+	KeyIsExists(key string) (interface{}, bool)
+	BulkDelete(keyPre string)
+}
+
+func CreateKvStore() (store StoreInterface) {
 	return &kvStore{}
 }
 
 // 定义一个容器结构体
-type kvStore struct {
-	lock *sync.Mutex
-}
+type kvStore struct{}
 
 // Set  增加键值对
 func (c *kvStore) Set(key string, value interface{}) (ret bool) {
