@@ -4,8 +4,9 @@ mysql:
   charset: "utf8"
   username: "root"
   password: "123456abc"
-  maxConn: 10
-  maxOpen: 100
+  setMaxIdleConns: 10
+  setMaxOpenConns: 128
+  setConnMaxLifetime: 60
   db: "img"
   slowThreshold: 30
   logConfig:
