@@ -1,6 +1,7 @@
 package variable
 
 import (
+	"github.com/bwmarrin/snowflake"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"sogo/app/global/types"
@@ -22,4 +23,7 @@ var (
 
 	//全局mysql数据库
 	Mdb *gorm.DB
+
+	//雪花算法
+	SnowNode *snowflake.Node
 )

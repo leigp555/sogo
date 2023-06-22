@@ -40,3 +40,6 @@ imaging:
   width: 400
   height: 0
   blur: 2
+
+snowFlake:
+  snowFlakeMachineId: 1

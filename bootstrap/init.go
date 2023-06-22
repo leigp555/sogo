@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"sogo/app/global/variable"
 	"sogo/app/utils/gorm_sql"
+	"sogo/app/utils/snow_flake"
 	"sogo/app/utils/zap_factory"
 )
 
@@ -14,4 +15,7 @@ func InitDeps() {
 
 	//初始化mysql
 	variable.Mdb = gorm_sql.CreateMysqlClient()
+
+	//雪花算法节点
+	variable.SnowNode = snow_flake.NewSnowflake()
 }
