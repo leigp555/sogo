@@ -22,6 +22,15 @@ redis:
   password: "123456abc"
   db: 0
   poolSize: 50
+  logConfig:
+    filename: "log/mysql/log"
+    maxSize: 1
+    maxBackups: 5
+    maxAge: 30
+    compress: false
+    showLine: true
+    level: "debug"
+
 nsq:
   nsqdAddr: "1.117.141.66:4150"
   nsqlookupdAddr: "1.117.141.66:4161"

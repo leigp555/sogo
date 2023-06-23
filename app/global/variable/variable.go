@@ -2,6 +2,7 @@ package variable
 
 import (
 	"github.com/bwmarrin/snowflake"
+	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"sogo/app/global/types"
@@ -17,12 +18,14 @@ var (
 	ZapLog   *zap.Logger
 	GinLog   *zap.Logger
 	MysqlLog *zap.Logger
+	RedisLog *zap.Logger
 
 	//全局Store前缀
 	ConfigKeyPrefix = "Config_"
 
 	//全局mysql数据库
 	Mdb *gorm.DB
+	Rdb *redis.Client
 
 	//雪花算法
 	SnowNode *snowflake.Node
