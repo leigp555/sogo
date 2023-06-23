@@ -10,4 +10,6 @@ const (
 	ErrorSnowFlakeInitFail string = "SnowFlake 初始化失败"
 
 	ErrorsRedisInitFail string = "Redis 连接初始化失败"
+
+	ErrorsElasticSearchInitFail string = "Redis 连接初始化失败"
 )

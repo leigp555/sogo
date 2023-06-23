@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"sogo/app/global/variable"
+	"sogo/app/utils/elasticsearch_client"
 	"sogo/app/utils/mysql_client"
 	"sogo/app/utils/redis_client"
 	"sogo/app/utils/snow_flake"
@@ -23,4 +24,7 @@ func InitDeps() {
 
 	//雪花算法节点
 	variable.SnowNode = snow_flake.NewSnowflake()
+
+	//初始化elasticsearch
+	variable.Es = elasticsearch_client.NewElasticsearchClient()
 }

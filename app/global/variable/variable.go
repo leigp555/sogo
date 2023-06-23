@@ -2,6 +2,7 @@ package variable
 
 import (
 	"github.com/bwmarrin/snowflake"
+	es "github.com/elastic/go-elasticsearch/v7"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -23,9 +24,11 @@ var (
 	//全局Store前缀
 	ConfigKeyPrefix = "Config_"
 
-	//全局mysql数据库
+	//全局数据库
 	Mdb *gorm.DB
 	Rdb *redis.Client
+
+	Es *es.Client
 
 	//雪花算法
 	SnowNode *snowflake.Node
