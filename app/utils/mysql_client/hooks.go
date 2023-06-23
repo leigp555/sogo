@@ -1,4 +1,4 @@
-package gorm_sql
+package mysql_client
 
 import (
 	"gorm.io/gorm"

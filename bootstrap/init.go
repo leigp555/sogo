@@ -2,7 +2,7 @@ package bootstrap
 
 import (
 	"sogo/app/global/variable"
-	"sogo/app/utils/gorm_sql"
+	"sogo/app/utils/mysql_client"
 	"sogo/app/utils/redis_client"
 	"sogo/app/utils/snow_flake"
 	"sogo/app/utils/zap_factory"
@@ -16,7 +16,7 @@ func InitDeps() {
 	variable.RedisLog = zap_factory.CreateLogger("redis")
 
 	//初始化mysql
-	variable.Mdb = gorm_sql.CreateMysqlClient()
+	variable.Mdb = mysql_client.CreateMysqlClient()
 
 	//初始化redis
 	variable.Rdb = redis_client.NewRedisClient()
