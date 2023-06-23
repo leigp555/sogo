@@ -1,4 +1,4 @@
-package conf_read
+package viper_readConf
 
 import (
 	"github.com/fsnotify/fsnotify"
