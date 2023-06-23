@@ -8,11 +8,13 @@ import (
 
 // ReturnJson 通用响应
 func ReturnJson(C *gin.Context, httpCode int, dataCode consts.StatusCode, msg string, data interface{}) {
+	id := C.GetString(consts.RequestId)
 	C.Header("Content-Type", "application/json; charset=utf-8")
 	C.JSON(httpCode, gin.H{
-		"code": dataCode,
-		"msg":  msg,
-		"data": data,
+		"requestId": id,
+		"code":      dataCode,
+		"msg":       msg,
+		"data":      data,
 	})
 }
 
