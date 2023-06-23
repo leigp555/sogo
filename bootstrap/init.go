@@ -1,11 +1,14 @@
 package bootstrap
 
 import (
+	"log"
+	"sogo/app/global/my_errors"
 	"sogo/app/global/variable"
 	"sogo/app/utils/elasticsearch_client"
 	"sogo/app/utils/mysql_client"
 	"sogo/app/utils/redis_client"
 	"sogo/app/utils/snow_flake"
+	"sogo/app/utils/validator_trans"
 	"sogo/app/utils/zap_factory"
 )
 
@@ -27,4 +30,10 @@ func InitDeps() {
 
 	//初始化elasticsearch
 	variable.Es = elasticsearch_client.NewElasticsearchClient()
+
+	//全局注册 validator 错误翻译器,zh 代表中文，en 代表英语
+	err := validator_trans.InitTrans("zh")
+	if err != nil {
+		log.Fatal(my_errors.ErrorsValidatorTransInitFail + err.Error())
+	}
 }
