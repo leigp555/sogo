@@ -3,6 +3,7 @@ package variable
 import (
 	"github.com/bwmarrin/snowflake"
 	es "github.com/elastic/go-elasticsearch/v7"
+	"github.com/juju/ratelimit"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -32,4 +33,6 @@ var (
 
 	//雪花算法
 	SnowNode *snowflake.Node
+
+	Bucket *ratelimit.Bucket
 )

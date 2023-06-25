@@ -59,7 +59,7 @@ var codeMsgMap = map[StatusCode]string{
 	CodeRequireToken:             "请上传登录凭证",
 	CodeTokenFormatErr:           "token格式错误",
 	CodeInvalidToken:             "无效的凭证",
-	CodeTooManyRequests:          "请求频繁,请稍后再试",
+	CodeTooManyRequests:          "TooManyRequests",
 }
 
 func (c StatusCode) Msg() string {

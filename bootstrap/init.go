@@ -4,6 +4,7 @@ import (
 	"log"
 	"sogo/app/global/my_errors"
 	"sogo/app/global/variable"
+	"sogo/app/utils/bucket"
 	"sogo/app/utils/elasticsearch_client"
 	"sogo/app/utils/mysql_client"
 	"sogo/app/utils/redis_client"
@@ -36,4 +37,7 @@ func InitDeps() {
 	if err != nil {
 		log.Fatal(my_errors.ErrorsValidatorTransInitFail + err.Error())
 	}
+
+	//初始化一个限流桶
+	variable.Bucket = bucket.NewBucket()
 }

@@ -1,7 +1,7 @@
 system:
   env: "dev"
   logConfig:
-    filename: "log/system/log"
+    filename: "log/system/system.log"
     maxSize: 1
     maxBackups: 5
     maxAge: 30
@@ -9,14 +9,23 @@ system:
     showLine: true
     level: "debug"
 token:
-  signingKey: "e199ad17-c090-43cb-b095-1dc55c209a77"
-  expiresTime: 604800
+  accessToken:
+    signingKey: "e199ad17-c090-43cb-b095-1dc55c209a77"
+    expiresTime: 1
+  refreshToken:
+    signingKey: "e199ad17-c090-43cb-b095-1dc55c209a77"
+    expiresTime: 168
+bucket:
+  fillInterval: 10
+  quantum: 10
+  capacity: 10000
+  waitTime: 3
 gin:
   mode: release
   host: "0.0.0.0"
   port: "8080"
   logConfig:
-    filename: "log/gin/log"
+    filename: "log/gin/gin.log"
     maxSize: 1
     maxBackups: 5
     maxAge: 30
@@ -33,13 +42,17 @@ login:
     redirectUri: "http://localhost:8080/callback"
     scope: "user:email"
 email:
-  from: "907090585@qq.com"
-  password: "cvxjaeubymkxbbic"
-  host: "smtp.qq.com"
+  qqEmail:
+    from: "2026499232@qq.com"
+    password: "ndzqxcvuekkkdjhd"
+    host: "smtp.qq.com"
+  gmail:
+    from: "xyleigp@gmail.com"
+    password: "dyshkcrrlsdwyhhh"
+    host: "smtp.gmail.com"
 imaging:
   width: 400
   height: 0
   blur: 2
-
 snowFlake:
   snowFlakeMachineId: 1
