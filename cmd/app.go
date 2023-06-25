@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"log"
 	"os"
 	"sogo/app/global/variable"
-	"sogo/app/utils/viper_readConf"
 	"sogo/bootstrap"
 )
 
@@ -48,6 +49,7 @@ func readConf() {
 	v := viper.New()
 	v.SetConfigType("yaml")
 	v.AddConfigPath("./config")
+	v.SetConfigName("config")
 	for i := 0; i < len(filesNames); i++ {
 		v.SetConfigName(filesNames[i])
 		if i == 0 {
@@ -62,5 +64,11 @@ func readConf() {
 			}
 		}
 	}
-	variable.Config = viper_readConf.CreateGlobalConf(v)
+	// 监控配置文件变化
+	v.WatchConfig()
+	v.OnConfigChange(func(in fsnotify.Event) {
+		//do something ......
+		log.Println("已修改配置文件")
+	})
+	variable.Config = v
 }
