@@ -18,7 +18,7 @@ func GinLogger() gin.HandlerFunc {
 		c.Next()
 		cost := time.Since(start)
 		if variable.Config.GetString("system.env") == "dev" {
-			variable.GinLog.Info("\033[35m"+path+"\033[0m",
+			variable.GinLog.Info(consts.Purple+path+consts.Reset,
 				zap.Int("status", c.Writer.Status()),
 				zap.String("method", c.Request.Method),
 				zap.String("query", query),

@@ -20,16 +20,16 @@ func InitDeps() {
 	variable.MysqlLog = zap_factory.CreateLogger("mysql")
 	variable.RedisLog = zap_factory.CreateLogger("redis")
 
-	//初始化mysql
+	//初始化mysql客户端
 	variable.Mdb = mysql_client.CreateMysqlClient()
 
-	//初始化redis
+	//初始化redis客户端
 	variable.Rdb = redis_client.NewRedisClient()
 
 	//雪花算法节点
 	variable.SnowNode = snow_flake.NewSnowflake()
 
-	//初始化elasticsearch
+	//初始化elasticsearch客户端
 	variable.Es = elasticsearch_client.NewElasticsearchClient()
 
 	//全局注册 validator 错误翻译器,zh 代表中文，en 代表英语
